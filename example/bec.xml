@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE cv [
+<!ENTITY emdash "&#8212;">
+]>
+
+<cv>
+   <name>Bor-Yuh Evan Chang</name>
+
+   <news-list>
+     <news date="2013.03.04">
+       <news-snippet>
+	 Paper "<ref table="pub" key="quicgraphs-ecoop13"/>" accepted to
+	 <ref table="event" key="ecoop13"/>.
+       </news-snippet>
+     </news>
+   </news-list>
+
+   <students>
+      <student person="cox">
+	<coadvisor person="srirams"/>
+	<snippet>Concurrency.</snippet>
+      </student>
+   </students>
+
+   <projects>
+     <project id="xisa">
+       <name>Xisa</name>
+       <title>Extensible Inductive Shape Analysis</title>
+       <icon>pics/icon-xisa.gif</icon>
+       <url>http://xisa.cs.colorado.edu</url>
+       <snippet>
+	 <p>Efficient algorithms and automatic tools for reasoning
+	 about heap-manipulating programs, such as those that use
+	 recursive data structures like pointer-based lists and trees.</p>
+       </snippet>
+       <references>
+	 <ref table="pub" key="stack-popl11" mode="abbrev"/>
+	 <ref table="pub" key="ssg-esop10" mode="abbrev"/>
+	 <ref table="pub" key="xisa-popl08" mode="abbrev"/>
+	 <ref table="pub" key="xisa-sas07" mode="abbrev"/>
+       </references>
+     </project>
+   </projects>
+
+   <activities>
+      <committee event="popl14">Co-Treasurer</committee>
+   </activities>
+
+   <courses>
+      <series>
+         <name>Program Analysis: Theory and Practice</name>
+         <abbrev>CSCI 7135</abbrev>
+         <course id="csci7135-s13">
+            <semester>Spring 2013</semester>
+            <url>http://www.cs.colorado.edu/~bec/courses/csci7135-s13/</url>
+         </course>
+         <course id="csci7135-f10">
+            <semester>Fall 2010</semester>
+            <url>http://www.cs.colorado.edu/~bec/courses/csci7135-f10/</url>
+         </course>
+      </series>
+   </courses>
+
+   <publications>
+     <pub id="quicgraphs-ecoop13">
+       <title>QUIC Graphs: Relational Invariant Generation for Containers</title>
+       <authors>
+	 <author person="cox"/>
+	 <author person="bec"/>
+	 <author person="srirams"/>
+       </authors>
+       <urls>
+	 <url name="pdf">papers/quicgraphs-ecoop13.pdf</url>
+       </urls>
+       <howpub>
+	 <proceedings event="ecoop13" />
+       </howpub>
+       <abstract>
+	 <p>Programs written in modern languages perform intricate
+	 manipulations of containers such as arrays, lists,
+	 dictionaries, and sets. We present an abstract
+	 interpretation-based framework for automatically inferring
+	 <em>relations</em> between the set of values stored in these
+	 containers. Relations include inclusion relations over unions
+	 and intersections, as well as quantified relationships with
+	 scalar variables. We develop an abstract domain constructor
+	 that builds a container domain out of a <em>Quantified
+	 Union-Intersection Constraint</em> (QUIC) graph parameterized
+	 by an arbitrary <em>base domain</em>.  We instantiate our
+	 domain with a polyhedral base domain and evaluate it on
+	 programs extracted from the Python test suite.  Over
+	 traditional, non-relational domains, we find significant
+	 precision improvements with minimal performance cost.</p>
+       </abstract>
+     </pub>
+   </publications>
+
+   <talks>
+      <talk id="pfiipta-berkeley11">
+	<title>The Flow-Insensitive Precision of Andersen's Analysis in Practice</title>
+	<date>2011-06-10</date>
+	<urls>
+	  <url name="flash">talks/pfipta-berkeley11.swf</url>
+	  <url name="pdf">talks/pfipta-berkeley11.pdf</url>
+	</urls>
+	<where>University of California, Berkeley</where>
+      </talk>
+   </talks>
+
+   <persons>
+      <person id="cox">
+         <name>Arlen Cox</name>
+         <url>http://eces.colorado.edu/~coxaj/</url>
+         <face>pics/cox.jpg</face>
+      </person>
+      <person id="bec">
+         <name>Bor-Yuh Evan Chang</name>
+         <url>http://www.cs.colorado.edu/~bec/</url>
+      </person>
+      <person id="srirams">
+         <name>Sriram Sankaranarayanan</name>
+         <url>http://www.cs.colorado.edu/~srirams/</url>
+      </person>
+   </persons>
+
+   <events>
+      <series id="popl">
+         <name>Principles of Programming Languages</name>
+         <longPrefix>ACM SIGACT-SIGPLAN Symposium on</longPrefix>
+         <event id="popl14">
+            <date>2014</date>
+            <location>San Diego, California, USA</location>
+            <nth>Forty-First</nth>
+            <url>http://popl.mpi-sws.org/2014/</url>
+         </event>
+         <event id="popl13">
+            <date>2013</date>
+            <location>Rome, Italy</location>
+            <nth>Fortieth</nth>
+            <url>http://popl.mpi-sws.org/2013/</url>
+         </event>
+         <event id="popl12">
+            <date>2012</date>
+            <location>Philadelphia, Pennsylvania, USA</location>
+            <nth>Thirty-Ninth</nth>
+            <url>http://www.cse.psu.edu/popl/12/</url>
+         </event>
+         <event id="popl11">
+            <date>2011</date>
+            <location>Austin, Texas, USA</location>
+            <nth>Thirty-Eighth</nth>
+            <url>http://www.cse.psu.edu/popl/11/</url>
+         </event>
+         <event id="popl10">
+            <date>2010</date>
+            <location>Madrid, Spain</location>
+            <nth>Thirty-Seventh</nth>
+            <url>http://www.cse.psu.edu/popl/10/</url>
+         </event>
+         <event id="popl08">
+            <date>2008</date>
+            <location>San Francisco, California, USA</location>
+            <nth>Thirty-Fifth</nth>
+            <url>http://www.cs.ucsd.edu/popl/08/</url>
+         </event>
+      </series>
+      <series id="ecoop">
+	<name>Object-Oriented Programming</name>
+	<longPrefix>European Conference on</longPrefix>
+	<event id="ecoop13">
+	  <date>2013-07</date>
+	  <location>Montpellier, France</location>
+	  <nth>Twenty-Seventh</nth>
+	  <url>http://www.lirmm.fr/ecoop13/</url>
+	</event>
+      </series>
+   </events>
+
+</cv>
