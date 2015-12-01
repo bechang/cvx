@@ -229,6 +229,7 @@ name="html" />
     <xsl:apply-templates select="news-snippet" mode="get-detail" />
   </p>
   <xsl:apply-templates select="(news-snippet|news-detail)[last()]/following-sibling::*" />
+  <div class="clearer"></div>
 </xsl:template>
 
 <xsl:template match="news-snippet" mode="as-item">
@@ -284,7 +285,16 @@ name="html" />
 </xsl:template>
 <xsl:template match="float">
   <div class="float-right">
-    <xsl:apply-templates select="child::node()" />
+  <xsl:choose>
+    <xsl:when test="@img">
+      <xsl:variable name="imgsrc" select="@img"/>
+      <xsl:variable name="imgalt" select="child::text()"/>
+      <img src="{$imgsrc}" alt ="{$imgalt}" class="article"></img>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="child::node()" />
+    </xsl:otherwise>
+  </xsl:choose>
   </div>    
 </xsl:template>
 
@@ -313,7 +323,7 @@ name="html" />
       </xsl:call-template>
       <h4><em><xsl:apply-templates select="title" /></em></h4>
       <xsl:call-template name="div-list">
-	<xsl:with-param name="items" select="abstract|bio" />
+	<xsl:with-param name="items" select="abstract|bio|host" />
       </xsl:call-template>
     </div>
   </div>
@@ -321,6 +331,9 @@ name="html" />
 <xsl:template match="bio">
   <h4>Biography</h4>
   <xsl:apply-templates />
+</xsl:template>
+<xsl:template match="host">
+  Hosted by <xsl:apply-templates />.
 </xsl:template>
 <xsl:template match="speaker" mode="face">
   <xsl:apply-templates select="child::node()">
@@ -331,21 +344,27 @@ name="html" />
 <!-- Students -->
 
 <xsl:template match="students">
-  <table class="columns">
-    <xsl:apply-templates select="student" />
+  <table class="columns line-spaced">
+    <xsl:apply-templates select="student[@group='current']" />
   </table>
 </xsl:template>
 
 <xsl:template match="student">
-  <tr><td>
-    <xsl:apply-templates select="key('person', @person)" />
-    <xsl:if test="coadvisor">
-      (co-advised with
-      <xsl:call-template name="text-list">
-	<xsl:with-param name="items" select="key('person', coadvisor/@person)" />
-      </xsl:call-template>)</xsl:if>.
-    <xsl:apply-templates select="child::node()" />
-  </td></tr>
+  <tr>
+    <td>
+      <xsl:apply-templates select="key('person', @person)" mode="detail" />
+    </td>
+    <td>
+      <p>
+      <xsl:apply-templates select="child::node()" />
+      <xsl:if test="coadvisor">
+        Co-advised with
+        <xsl:call-template name="text-list">
+	  <xsl:with-param name="items" select="key('person', coadvisor/@person)" />
+        </xsl:call-template>.</xsl:if>
+      </p>
+    </td>
+  </tr>
 </xsl:template>
 
 <!-- Courses -->
@@ -747,7 +766,10 @@ name="html" />
     <xsl:value-of select="longPrefix" />
     &space;
   </xsl:if>
-  <xsl:value-of select="name" />
+  <xsl:apply-templates select="name/child::node()" />
+</xsl:template>
+<xsl:template match="series" mode="ref">
+  <xsl:apply-templates select="." />
 </xsl:template>
 <xsl:template match="series" mode="abbrev">
   <xsl:choose>
@@ -761,6 +783,7 @@ name="html" />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+  
 
 <xsl:template match="series" mode="long">
   <xsl:param name="sub" />
@@ -859,7 +882,7 @@ name="html" />
   <xsl:apply-templates select="child::node()" />
 </xsl:template>
 
-<xsl:template match="p|div">
+<xsl:template match="p|div|ol|ul|li">
   <xsl:call-template name="copy-and-apply"/>
 </xsl:template>
 
