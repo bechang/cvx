@@ -345,7 +345,7 @@ name="html" />
 
 <xsl:template match="students">
   <table class="columns line-spaced">
-    <xsl:apply-templates select="student[@group='current']" />
+    <xsl:apply-templates select="student" />
   </table>
 </xsl:template>
 
