@@ -413,7 +413,7 @@ name="html" />
       <xsl:call-template name="withurl">
 	<xsl:with-param name="text" select="name" />
       </xsl:call-template>
-      <span style="position: absolute; left: 250px;"><xsl:value-of select="title"/></span>
+      <div><xsl:value-of select="title"/></div>
     </xsl:with-param>
     <xsl:with-param name="lines" select="snippet" />
     <xsl:with-param name="notes" select="authors|references" />
