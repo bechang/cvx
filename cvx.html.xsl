@@ -652,6 +652,21 @@ name="html" />
 <xsl:template match="journal">
   <xsl:value-of select="name"/>
 </xsl:template>
+<xsl:template match="journal" mode="short">
+  <xsl:value-of select="short"/>
+</xsl:template>
+<xsl:template match="journal" mode="abbrev">
+  <xsl:choose>
+    <xsl:when test="abbrev">
+      <xsl:apply-templates select="abbrev" />
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="translate(@id,
+			    'abcdefghijklmnopqrstuvwxyz',
+			    'ABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 <xsl:template match="volume"><xsl:value-of select="."/></xsl:template>
 <xsl:template match="number">(<xsl:value-of select="."/>)</xsl:template>
 
@@ -834,6 +849,10 @@ name="html" />
       </xsl:call-template>
     </td>
   </tr>
+</xsl:template>
+
+<xsl:template match="journal" mode="ref">
+  <xsl:apply-templates select="." mode="abbrev" />
 </xsl:template>
 
 <xsl:template match="tr">
