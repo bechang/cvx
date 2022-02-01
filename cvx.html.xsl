@@ -473,16 +473,24 @@ name="html" />
 <!-- Publications -->
 
 <xsl:template match="publications" mode="recent-by-event">
-  <!-- Hard wired to last four years of publications and showing only events. -->
+  <!-- Hard wired to last four years of publications. -->
 
-  <xsl:for-each select="pub[descendant::proceedings]">
+  <!--<xsl:for-each select="pub[descendant::proceedings]">-->
+  <xsl:for-each select="pub">
     <xsl:variable name="pub-year">
       <xsl:call-template name="get-year" />
     </xsl:variable>
     <xsl:if test="$pub-year >= year-from-date(current-date()) - 3">
-      <xsl:if test="(position() = 1) or (preceding-sibling::*[1]/descendant::proceedings[1]/@event != descendant::proceedings[1]/@event)">
-	<xsl:apply-templates select="descendant::proceedings" mode="header" />
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="position() = 1">
+	        <xsl:apply-templates select="howpub" mode="header" />
+        </xsl:when>
+        <xsl:when test="preceding-sibling::pub[1]/descendant::*[@event]/@event =
+        descendant::*[@event]/@event"></xsl:when>
+        <xsl:otherwise>
+	        <xsl:apply-templates select="howpub" mode="header" />
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="." />
     </xsl:if>
   </xsl:for-each>
@@ -517,6 +525,16 @@ name="html" />
   <xsl:call-template name="withurl">
     <xsl:with-param name="text" select="title" />
   </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="pub" mode="header">
+  <xsl:choose>
+    <xsl:when test="descendant::*[@event]">
+      <xsl:apply-templates select="key('event', descendant::*[@event]/@event)" mode="header"/>
+    </xsl:when>
+    <xsl:otherwise>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="pub">
@@ -636,6 +654,9 @@ name="html" />
 <xsl:template match="howpub" mode="abbrev">
   <xsl:apply-templates select="node()" mode="abbrev" />
 </xsl:template>
+<xsl:template match="howpub" mode="header">
+  <xsl:apply-templates select="node()" mode="header" />
+</xsl:template>
 <xsl:template match="proceedings">
   <xsl:apply-templates select="key('event', @event)" />
 </xsl:template>
@@ -648,6 +669,32 @@ name="html" />
 
 <xsl:template match="issue">
   <xsl:apply-templates select="key('journal',@journal)" mode="name"/>
+</xsl:template>
+<xsl:template match="issue" mode="abbrev">
+  <xsl:apply-templates select="key('journal',@journal)" mode="abbrev"/>
+  <xsl:apply-templates select="ancestor::pub/descendant::volume"/>
+  <xsl:apply-templates select="ancestor::pub/descendant::number"/>
+</xsl:template>
+<xsl:template match="issue" mode="header">
+  <xsl:choose>
+    <xsl:when test="@event">
+      <xsl:apply-templates select="key('event', @event)" mode="header"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <h2>
+      <xsl:apply-templates select="key('journal',@journal)" mode="abbrev"/>
+      <span class="subh">
+        <xsl:apply-templates select="ancestor::pub/descendant::volume"/>
+        <xsl:apply-templates select="ancestor::pub/descendant::number"/>
+      </span>
+      <span class="subh">
+        <xsl:call-template name="format-date">
+          <xsl:with-param name="date" select="ancestor::pub/descendant::date"/>
+        </xsl:call-template>
+      </span>
+      </h2>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 <xsl:template match="journal">
   <xsl:value-of select="name"/>
